@@ -1,21 +1,21 @@
 from django.db import models
 
+class Course(models.Model):
+    title = models.CharField(max_length=100)
 
-class Person(models.Model):
+    def __str__(self):
+        return self.title
+
+
+class Student(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
+    email = models.EmailField()
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return self.name
 
-
-class Student(Person):
-    course = models.CharField(max_length=100)
-
-
-class Teacher(Person):
+class Teacher(models.Model):
+    name = models.CharField(max_length=100)
     subject = models.CharField(max_length=100)
-
-from django.db import models
-
-# Create your models here.
